@@ -1,0 +1,1005 @@
+game.ReplicatedStorage.AdminRemotes.WhitelistPlayerAsAdmin:FireServer() -- Whitelists the player as an admin so that Weapon Warfare's anticheat doesn't work (for you)
+
+
+pcall(function()
+	game.StarterGui:SetCore("ChatMakeSystemMessage", {
+		Text = "[WEAPON WARFARE DESTROYER]: " .. "Press M to activate the panel, and M again to deactivate the panel.";
+		Color = Color3.new(1, 0.309804, 0.309804);
+		Font = Enum.Font.SourceSansBold;
+		FontSize = Enum.FontSize.Size24;
+	})
+end)
+
+local Cleanup = workspace:FindFirstChild("CleanupSheisse")
+
+if not Cleanup then
+	Cleanup = Instance.new("Folder", workspace)
+	Cleanup.Name = "CleanupSheisse"
+end
+
+local ESPBool = false
+local FlyBool = false
+local KillfeedBool = false
+
+local function ErrorPopup(title, err)
+	game.StarterGui:SetCore("SendNotification", {
+		Title = title;
+		Text = err; 
+		Image = "rbxassetid://2579660936";
+		Duration = 5; 
+	})
+end
+
+game.StarterGui:SetCore("SendNotification", {
+	Title = "WEAPON WARFARE DESTROYER";
+	Text = "PRESS M TO OPEN PANEL."; 
+	Duration = 10; 
+})
+
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("WeaponWarfareDestroyer") then
+	game.Players.LocalPlayer.PlayerGui:FindFirstChild("WeaponWarfareDestroyer"):Destroy()
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "UPDATED PREVIOUS WEAPON WARFARE DESTROYER PANEL.";
+		Duration = 5; 
+	})
+end
+
+local WeaponWarfareDestroyer = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+WeaponWarfareDestroyer.Name = "WeaponWarfareDestroyer"
+WeaponWarfareDestroyer.ResetOnSpawn = false
+WeaponWarfareDestroyer.DisplayOrder = 1000000000
+WeaponWarfareDestroyer.Enabled = false
+
+local Sounds = Instance.new("Folder", WeaponWarfareDestroyer)
+Sounds.Name = "Sounds"
+
+local Hover = Instance.new("Sound")
+Hover.Name = "Hover"
+Hover.Volume = 1
+Hover.SoundId = "rbxassetid://720166642"
+Hover.Parent = Sounds
+
+local Click = Instance.new("Sound")
+Click.Name = "Click"
+Click.Volume = 1
+Click.SoundId = "rbxassetid://903267862"
+Click.Parent = Sounds
+
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+mouse.KeyDown:connect(function(key)
+	if key == "m" then
+		Click:Play()
+		WeaponWarfareDestroyer.Enabled = not WeaponWarfareDestroyer.Enabled
+	end
+end)
+
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0.2611637, 0, 0.6474202, 0)
+Frame.BorderColor3 = Color3.fromRGB(79, 23, 23)
+Frame.Position = UDim2.new(0.0656292, 0, 0.2076167, 0)
+Frame.BorderSizePixel = 2
+Frame.BackgroundColor3 = Color3.fromRGB(212, 212, 212)
+Frame.Parent = WeaponWarfareDestroyer
+
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Size = UDim2.new(0.8367876, 0, 0.0948767, 0)
+TextLabel.BackgroundTransparency = 1
+TextLabel.Position = UDim2.new(0.0803109, 0, 0.0132827, 0)
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.FontSize = Enum.FontSize.Size14
+TextLabel.TextSize = 14
+TextLabel.TextColor3 = Color3.fromRGB(131, 39, 39)
+TextLabel.Text = "Weapon Warfare Destroyer"
+TextLabel.TextWrap = true
+TextLabel.Font = Enum.Font.SourceSansBold
+TextLabel.TextWrapped = true
+TextLabel.TextScaled = true
+TextLabel.Parent = Frame
+
+local Frame1 = Instance.new("Frame")
+Frame1.Size = UDim2.new(0.8834197, 0, 0.9, 0)
+Frame1.BackgroundTransparency = 1
+Frame1.Position = UDim2.new(0.0569948, 0, 0.1081594, 0)
+Frame1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame1.Parent = Frame
+
+local UIListLayout = Instance.new("UIListLayout")
+UIListLayout.Parent = Frame1
+
+local WalkSpeed = Instance.new("Frame")
+WalkSpeed.Name = "WalkSpeed"
+WalkSpeed.Size = UDim2.new(0.9736071, 0, 0.0749227, 0)
+WalkSpeed.BorderColor3 = Color3.fromRGB(131, 39, 39)
+WalkSpeed.BorderSizePixel = 2
+WalkSpeed.BackgroundColor3 = Color3.fromRGB(236, 236, 236)
+WalkSpeed.Parent = Frame1
+
+local TextButton = Instance.new("TextButton")
+TextButton.BorderMode = Enum.BorderMode.Inset
+TextButton.Size = UDim2.new(0.3674698, 0, 0.9999999, 0)
+TextButton.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextButton.Position = UDim2.new(0.6325301, 0, 0, 0)
+TextButton.BorderSizePixel = 2
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.FontSize = Enum.FontSize.Size14
+TextButton.TextSize = 14
+TextButton.TextColor3 = Color3.fromRGB(255, 49, 52)
+TextButton.Text = "WalkSpeed"
+TextButton.TextWrap = true
+TextButton.Font = Enum.Font.SourceSansBold
+TextButton.TextWrapped = true
+TextButton.TextScaled = true
+TextButton.Parent = WalkSpeed
+
+local TextBox = Instance.new("TextBox")
+TextBox.BorderMode = Enum.BorderMode.Inset
+TextBox.Size = UDim2.new(0.6325301, 0, 1, 0)
+TextBox.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextBox.Position = UDim2.new(0, 0, 0, 0)
+TextBox.BorderSizePixel = 2
+TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.CursorPosition = -1
+TextBox.PlaceholderColor3 = Color3.fromRGB(255, 23, 23)
+TextBox.FontSize = Enum.FontSize.Size14
+TextBox.TextSize = 14
+TextBox.TextWrapped = true
+TextBox.TextWrap = true
+TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.Text = ""
+TextBox.Font = Enum.Font.SourceSansLight
+TextBox.PlaceholderText = "16"
+TextBox.TextScaled = true
+TextBox.Parent = WalkSpeed
+
+local JumpHeight = Instance.new("Frame")
+JumpHeight.Name = "JumpHeight"
+JumpHeight.Size = UDim2.new(0.9736071, 0, 0.0749227, 0)
+JumpHeight.BorderColor3 = Color3.fromRGB(131, 39, 39)
+JumpHeight.BorderSizePixel = 2
+JumpHeight.BackgroundColor3 = Color3.fromRGB(236, 236, 236)
+JumpHeight.Parent = Frame1
+
+local TextButton1 = Instance.new("TextButton")
+TextButton1.BorderMode = Enum.BorderMode.Inset
+TextButton1.Size = UDim2.new(0.3674698, 0, 0.9999999, 0)
+TextButton1.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextButton1.Position = UDim2.new(0.6325301, 0, 0, 0)
+TextButton1.BorderSizePixel = 2
+TextButton1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton1.FontSize = Enum.FontSize.Size14
+TextButton1.TextSize = 14
+TextButton1.TextColor3 = Color3.fromRGB(255, 49, 52)
+TextButton1.Text = "Jump Height"
+TextButton1.TextWrap = true
+TextButton1.Font = Enum.Font.SourceSansBold
+TextButton1.TextWrapped = true
+TextButton1.TextScaled = true
+TextButton1.Parent = JumpHeight
+
+local TextBox1 = Instance.new("TextBox")
+TextBox1.BorderMode = Enum.BorderMode.Inset
+TextBox1.Size = UDim2.new(0.6325301, 0, 1, 0)
+TextBox1.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextBox1.Position = UDim2.new(0, 0, 0, 0)
+TextBox1.BorderSizePixel = 2
+TextBox1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox1.CursorPosition = -1
+TextBox1.PlaceholderColor3 = Color3.fromRGB(255, 23, 23)
+TextBox1.FontSize = Enum.FontSize.Size14
+TextBox1.TextSize = 14
+TextBox1.TextWrapped = true
+TextBox1.TextWrap = true
+TextBox1.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextBox1.Text = ""
+TextBox1.Font = Enum.Font.SourceSansLight
+TextBox1.PlaceholderText = "Put desired jump height here"
+TextBox1.TextScaled = true
+TextBox1.Parent = JumpHeight
+
+local Teleport = Instance.new("Frame")
+Teleport.Name = "Teleport"
+Teleport.Size = UDim2.new(0.9736071, 0, 0.0749227, 0)
+Teleport.BorderColor3 = Color3.fromRGB(131, 39, 39)
+Teleport.BorderSizePixel = 2
+Teleport.BackgroundColor3 = Color3.fromRGB(236, 236, 236)
+Teleport.Parent = Frame1
+
+local TextButton2 = Instance.new("TextButton")
+TextButton2.BorderMode = Enum.BorderMode.Inset
+TextButton2.Size = UDim2.new(0.3674698, 0, 0.9999999, 0)
+TextButton2.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextButton2.Position = UDim2.new(0.6325301, 0, 0, 0)
+TextButton2.BorderSizePixel = 2
+TextButton2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton2.FontSize = Enum.FontSize.Size14
+TextButton2.TextSize = 14
+TextButton2.TextColor3 = Color3.fromRGB(255, 49, 52)
+TextButton2.Text = "Teleport"
+TextButton2.TextWrap = true
+TextButton2.Font = Enum.Font.SourceSansBold
+TextButton2.TextWrapped = true
+TextButton2.TextScaled = true
+TextButton2.Parent = Teleport
+
+local TextBox2 = Instance.new("TextBox")
+TextBox2.BorderMode = Enum.BorderMode.Inset
+TextBox2.Size = UDim2.new(0.6325301, 0, 1, 0)
+TextBox2.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextBox2.Position = UDim2.new(0, 0, 0, 0)
+TextBox2.BorderSizePixel = 2
+TextBox2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox2.SelectionStart = 1
+TextBox2.PlaceholderColor3 = Color3.fromRGB(255, 23, 23)
+TextBox2.FontSize = Enum.FontSize.Size14
+TextBox2.TextSize = 14
+TextBox2.TextWrapped = true
+TextBox2.TextWrap = true
+TextBox2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextBox2.Text = ""
+TextBox2.Font = Enum.Font.SourceSansLight
+TextBox2.PlaceholderText = "Put player name here"
+TextBox2.TextScaled = true
+TextBox2.Parent = Teleport
+
+local HipHeight = Instance.new("Frame")
+HipHeight.Name = "HipHeight"
+HipHeight.Size = UDim2.new(0.9736071, 0, 0.0749227, 0)
+HipHeight.BorderColor3 = Color3.fromRGB(131, 39, 39)
+HipHeight.BorderSizePixel = 2
+HipHeight.BackgroundColor3 = Color3.fromRGB(236, 236, 236)
+HipHeight.Parent = Frame1
+
+local TextButton3 = Instance.new("TextButton")
+TextButton3.BorderMode = Enum.BorderMode.Inset
+TextButton3.Size = UDim2.new(0.3674698, 0, 0.9999999, 0)
+TextButton3.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextButton3.Position = UDim2.new(0.6325301, 0, 0, 0)
+TextButton3.BorderSizePixel = 2
+TextButton3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton3.FontSize = Enum.FontSize.Size14
+TextButton3.TextSize = 14
+TextButton3.TextColor3 = Color3.fromRGB(255, 49, 52)
+TextButton3.Text = "Hip Height"
+TextButton3.TextWrap = true
+TextButton3.Font = Enum.Font.SourceSansBold
+TextButton3.TextWrapped = true
+TextButton3.TextScaled = true
+TextButton3.Parent = HipHeight
+
+local TextBox3 = Instance.new("TextBox")
+TextBox3.BorderMode = Enum.BorderMode.Inset
+TextBox3.Size = UDim2.new(0.6325301, 0, 1, 0)
+TextBox3.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextBox3.Position = UDim2.new(0, 0, 0, 0)
+TextBox3.BorderSizePixel = 2
+TextBox3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox3.CursorPosition = -1
+TextBox3.PlaceholderColor3 = Color3.fromRGB(255, 23, 23)
+TextBox3.FontSize = Enum.FontSize.Size14
+TextBox3.TextSize = 14
+TextBox3.TextWrapped = true
+TextBox3.TextWrap = true
+TextBox3.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextBox3.Text = ""
+TextBox3.Font = Enum.Font.SourceSansLight
+TextBox3.PlaceholderText = "0"
+TextBox3.TextScaled = true
+TextBox3.Parent = HipHeight
+
+local ESP = Instance.new("Frame")                                                                                                                                                                                   
+
+ESP.Name = "ESP"
+ESP.Size = UDim2.new(0.9736071, 0, 0.0749227, 0)
+ESP.BorderColor3 = Color3.fromRGB(131, 39, 39)
+ESP.BorderSizePixel = 2
+ESP.BackgroundColor3 = Color3.fromRGB(236, 236, 236)
+ESP.Parent = Frame1
+
+local TextButton4 = Instance.new("TextButton")
+TextButton4.BorderMode = Enum.BorderMode.Inset
+TextButton4.Size = UDim2.new(0.9999999, 0, 0.9999999, 0)
+TextButton4.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextButton4.Position = UDim2.new(0, 0, 0, 0)
+TextButton4.BorderSizePixel = 2
+TextButton4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton4.FontSize = Enum.FontSize.Size14
+TextButton4.TextSize = 14
+TextButton4.TextColor3 = Color3.fromRGB(255, 49, 52)
+TextButton4.Text = "Toggle ESP"
+TextButton4.TextWrap = true
+TextButton4.Font = Enum.Font.SourceSansBold
+TextButton4.TextWrapped = true
+TextButton4.TextScaled = true
+TextButton4.Parent = ESP
+
+local KillfeedFrame = Instance.new("Frame")
+KillfeedFrame.Name = "Killfeed"
+KillfeedFrame.Size = UDim2.new(0.9736071, 0, 0.0749227, 0)
+KillfeedFrame.BorderColor3 = Color3.fromRGB(131, 39, 39)
+KillfeedFrame.BorderSizePixel = 2
+KillfeedFrame.BackgroundColor3 = Color3.fromRGB(236, 236, 236)
+KillfeedFrame.Parent = Frame1
+
+local KillfeedButton = Instance.new("TextButton")
+KillfeedButton.BorderMode = Enum.BorderMode.Inset
+KillfeedButton.Size = UDim2.new(0.9999999, 0, 0.9999999, 0)
+KillfeedButton.BorderColor3 = Color3.fromRGB(154, 154, 154)
+KillfeedButton.Position = UDim2.new(0, 0, 0, 0)
+KillfeedButton.BorderSizePixel = 2
+KillfeedButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KillfeedButton.FontSize = Enum.FontSize.Size14
+KillfeedButton.TextSize = 14
+KillfeedButton.TextColor3 = Color3.fromRGB(255, 49, 52)
+KillfeedButton.Text = "Toggle Killfeed"
+KillfeedButton.TextWrap = true
+KillfeedButton.Font = Enum.Font.SourceSansBold
+KillfeedButton.TextWrapped = true
+KillfeedButton.TextScaled = true
+KillfeedButton.Parent = KillfeedFrame
+
+local Fly = Instance.new("Frame")
+Fly.Name = "Fly"
+Fly.Size = UDim2.new(0.9736071, 0, 0.0749227, 0)
+Fly.BorderColor3 = Color3.fromRGB(131, 39, 39)
+Fly.BorderSizePixel = 2
+Fly.BackgroundColor3 = Color3.fromRGB(236, 236, 236)
+Fly.Parent = Frame1
+
+local TextButton5 = Instance.new("TextButton")
+TextButton5.BorderMode = Enum.BorderMode.Inset
+TextButton5.Size = UDim2.new(0.9999999, 0, 0.9999999, 0)
+TextButton5.BorderColor3 = Color3.fromRGB(154, 154, 154)
+TextButton5.Position = UDim2.new(0, 0, 0, 0)
+TextButton5.BorderSizePixel = 2
+TextButton5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton5.FontSize = Enum.FontSize.Size14
+TextButton5.TextSize = 14
+TextButton5.TextColor3 = Color3.fromRGB(255, 49, 52)
+TextButton5.Text = "Toggle Flying"
+TextButton5.TextWrap = true
+TextButton5.Font = Enum.Font.SourceSansBold
+TextButton5.TextWrapped = true
+TextButton5.TextScaled = true
+TextButton5.Parent = Fly
+
+local TeleportPlaces = Instance.new("ScrollingFrame")
+TeleportPlaces.Name = "TeleportPlaces"
+TeleportPlaces.Size = UDim2.new(0.9736071, 0, 0.3951435, 0)
+TeleportPlaces.BorderColor3 = Color3.fromRGB(131, 39, 39)
+TeleportPlaces.Position = UDim2.new(0, 0, 0.4746137, 0)
+TeleportPlaces.BorderSizePixel = 2
+TeleportPlaces.BackgroundColor3 = Color3.fromRGB(236, 236, 236)
+TeleportPlaces.Parent = Frame1
+TeleportPlaces.CanvasSize = UDim2.new(0,0,2.5,0)
+
+local UIListLayout69 = UIListLayout:Clone()
+UIListLayout69.Parent = TeleportPlaces
+
+local ScrollingFrame = Instance.new("ScrollingFrame")
+ScrollingFrame.BorderMode = Enum.BorderMode.Inset
+ScrollingFrame.Size = UDim2.new(1, 0, 1, 0)
+ScrollingFrame.BorderColor3 = Color3.fromRGB(154, 154, 154)
+ScrollingFrame.Active = true
+ScrollingFrame.BorderSizePixel = 2
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(0, 0, 0)
+ScrollingFrame.Parent = TeleportPlaces
+
+local UIGridLayout = Instance.new("UIGridLayout")
+UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout.CellSize = UDim2.new(1, 0, 0.05, 0)
+UIGridLayout.CellPadding = UDim2.new(0, 0, 0, 0)
+UIGridLayout.Parent = ScrollingFrame
+
+local CloneButton = Instance.new("TextButton")
+CloneButton.Size = UDim2.new(0.9, 0, .03, 0)
+CloneButton.BackgroundTransparency = 1
+CloneButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CloneButton.FontSize = Enum.FontSize.Size14
+CloneButton.TextSize = 14
+CloneButton.TextColor3 = Color3.fromRGB(255, 49, 52)
+CloneButton.TextWrap = true
+CloneButton.Font = Enum.Font.SourceSansBold
+CloneButton.TextWrapped = true
+CloneButton.TextScaled = true
+CloneButton.Parent = ScrollingFrame
+
+local TeleportLocations = Instance.new("Folder")
+TeleportLocations.Name = "TeleportLocations"
+TeleportLocations.Parent = WeaponWarfareDestroyer
+
+local MazeWeaponShelf2 = Instance.new("Part")
+MazeWeaponShelf2.Name = "MazeWeaponShelf2"
+MazeWeaponShelf2.Anchored = true
+MazeWeaponShelf2.CanCollide = false
+MazeWeaponShelf2.Size = Vector3.new(1, 1, 1)
+MazeWeaponShelf2.CFrame = CFrame.new(269.17993164063, 2249.9992675781, -2989.3366699219)
+MazeWeaponShelf2.Parent = TeleportLocations
+
+local MazeSpawnLocation = Instance.new("Part")
+MazeSpawnLocation.Name = "MazeSpawnLocation"
+MazeSpawnLocation.Anchored = true
+MazeSpawnLocation.CanCollide = false
+MazeSpawnLocation.Size = Vector3.new(1, 1, 1)
+MazeSpawnLocation.CFrame = CFrame.new(267.63302612305, 2234.9992675781, -3015.3168945313)
+MazeSpawnLocation.Parent = TeleportLocations
+
+local MazeWeaponShelf = Instance.new("Part")
+MazeWeaponShelf.Name = "MazeWeaponShelf"
+MazeWeaponShelf.Anchored = true
+MazeWeaponShelf.CanCollide = false
+MazeWeaponShelf.Size = Vector3.new(1, 1, 1)
+MazeWeaponShelf.CFrame = CFrame.new(82.957359313965, 2233.9992675781, -3137.5412597656)
+MazeWeaponShelf.Parent = TeleportLocations
+
+local MazeOverlook2 = Instance.new("Part")
+MazeOverlook2.Name = "MazeOverlook2"
+MazeOverlook2.Anchored = true
+MazeOverlook2.CanCollide = false
+MazeOverlook2.Size = Vector3.new(1, 1, 1)
+MazeOverlook2.CFrame = CFrame.new(104.74883270264, 2258, -2981.5024414063)
+MazeOverlook2.Parent = TeleportLocations
+
+local MazeOverlook = Instance.new("Part")
+MazeOverlook.Name = "MazeOverlook"
+MazeOverlook.Anchored = true
+MazeOverlook.CanCollide = false
+MazeOverlook.Size = Vector3.new(1, 1, 1)
+MazeOverlook.CFrame = CFrame.new(205.70120239258, 2260, -2992.2006835938)
+MazeOverlook.Parent = TeleportLocations
+
+local MountainOverlook = Instance.new("Part")
+MountainOverlook.Name = "MountainOverlook"
+MountainOverlook.Anchored = true
+MountainOverlook.CanCollide = false
+MountainOverlook.Size = Vector3.new(1, 1, 1)
+MountainOverlook.CFrame = CFrame.new(21.572566986084, 2270, -3020.9711914063)
+MountainOverlook.Parent = TeleportLocations
+
+local MineShaftEntrance = Instance.new("Part")
+MineShaftEntrance.Name = "MineShaftEntrance"
+MineShaftEntrance.Anchored = true
+MineShaftEntrance.CanCollide = false
+MineShaftEntrance.Size = Vector3.new(1, 1, 1)
+MineShaftEntrance.CFrame = CFrame.new(-29.030427932739, 2234, -2997.1003417969)
+MineShaftEntrance.Parent = TeleportLocations
+
+local MineShaftWeaponShelf = Instance.new("Part")
+MineShaftWeaponShelf.Name = "MineShaftWeaponShelf"
+MineShaftWeaponShelf.Anchored = true
+MineShaftWeaponShelf.CanCollide = false
+MineShaftWeaponShelf.Size = Vector3.new(1, 1, 1)
+MineShaftWeaponShelf.CFrame = CFrame.new(-60.006923675537, 2234, -3078.2565917969)
+MineShaftWeaponShelf.Parent = TeleportLocations
+
+local MountinStaircase = Instance.new("Part")
+MountinStaircase.Name = "MountinStaircase"
+MountinStaircase.Anchored = true
+MountinStaircase.CanCollide = false
+MountinStaircase.Size = Vector3.new(1, 1, 1)
+MountinStaircase.CFrame = CFrame.new(52.257007598877, 2234, -3055.2976074219)
+MountinStaircase.Parent = TeleportLocations
+
+local MountainWeaponShelf = Instance.new("Part")
+MountainWeaponShelf.Name = "MountainWeaponShelf"
+MountainWeaponShelf.Anchored = true
+MountainWeaponShelf.CanCollide = false
+MountainWeaponShelf.Size = Vector3.new(1, 1, 1)
+MountainWeaponShelf.CFrame = CFrame.new(-66.707077026367, 2263, -3035.2631835938)
+MountainWeaponShelf.Parent = TeleportLocations
+
+local MountainSpawnLocation = Instance.new("Part")
+MountainSpawnLocation.Name = "MountainSpawnLocation"
+MountainSpawnLocation.Anchored = true
+MountainSpawnLocation.CanCollide = false
+MountainSpawnLocation.Size = Vector3.new(1, 1, 1)
+MountainSpawnLocation.CFrame = CFrame.new(-82.653900146484, 2277, -3047.3273925781)
+MountainSpawnLocation.Parent = TeleportLocations
+
+local FightingArena = Instance.new("Part")
+FightingArena.Name = "FightingArena"
+FightingArena.Anchored = true
+FightingArena.CanCollide = false
+FightingArena.Size = Vector3.new(1, 1, 1)
+FightingArena.CFrame = CFrame.new(232.34687805176, 2234.9992675781, -2936.5029296875)
+FightingArena.Parent = TeleportLocations
+
+local HouseCouch2 = Instance.new("Part")
+HouseCouch2.Name = "HouseCouch2"
+HouseCouch2.Anchored = true
+HouseCouch2.CanCollide = false
+HouseCouch2.Size = Vector3.new(1, 1, 1)
+HouseCouch2.CFrame = CFrame.new(125.68463134766, 2236, -2822.6518554688)
+HouseCouch2.Parent = TeleportLocations
+
+local BackyardWeaponShelf = Instance.new("Part")
+BackyardWeaponShelf.Name = "BackyardWeaponShelf"
+BackyardWeaponShelf.Anchored = true
+BackyardWeaponShelf.CanCollide = false
+BackyardWeaponShelf.Size = Vector3.new(1, 1, 1)
+BackyardWeaponShelf.CFrame = CFrame.new(113.00511932373, 2233.9992675781, -2775.5249023438)
+BackyardWeaponShelf.Parent = TeleportLocations
+
+local ParkEntrance = Instance.new("Part")
+ParkEntrance.Name = "ParkEntrance"
+ParkEntrance.Anchored = true
+ParkEntrance.CanCollide = false
+ParkEntrance.Size = Vector3.new(1, 1, 1)
+ParkEntrance.CFrame = CFrame.new(50.21696472168, 2234, -2810.1999511719)
+ParkEntrance.Parent = TeleportLocations
+
+local ParkWeaponShelf = Instance.new("Part")
+ParkWeaponShelf.Name = "ParkWeaponShelf"
+ParkWeaponShelf.Anchored = true
+ParkWeaponShelf.CanCollide = false
+ParkWeaponShelf.Size = Vector3.new(1, 1, 1)
+ParkWeaponShelf.CFrame = CFrame.new(-121.22927093506, 2233.9975585938, -2888.3557128906)
+ParkWeaponShelf.Parent = TeleportLocations
+
+local NonCollidingBush = Instance.new("Part")
+NonCollidingBush.Name = "NonCollidingBush"
+NonCollidingBush.Anchored = true
+NonCollidingBush.CanCollide = false
+NonCollidingBush.Size = Vector3.new(1, 1, 1)
+NonCollidingBush.CFrame = CFrame.new(-56.393871307373, 2234, -2823.7438964844)
+NonCollidingBush.Parent = TeleportLocations
+
+local HouseCouch = Instance.new("Part")
+HouseCouch.Name = "HouseCouch"
+HouseCouch.Anchored = true
+HouseCouch.CanCollide = false
+HouseCouch.Size = Vector3.new(1, 1, 1)
+HouseCouch.CFrame = CFrame.new(246.41256713867, 2235.9995117188, -2816.5939941406)
+HouseCouch.Parent = TeleportLocations
+
+local V1Top = Instance.new("Part")
+V1Top.Name = "1V1Top"
+V1Top.Anchored = true
+V1Top.CanCollide = false
+V1Top.Size = Vector3.new(1, 1, 1)
+V1Top.CFrame = CFrame.new(252.63537597656, 2236, -2929.7346191406)
+V1Top.Parent = TeleportLocations
+
+local v1Bottom = Instance.new("Part")
+v1Bottom.Name = "1v1Bottom"
+v1Bottom.Anchored = true
+v1Bottom.CanCollide = false
+v1Bottom.Size = Vector3.new(1, 1, 1)
+v1Bottom.CFrame = CFrame.new(213.87568664551, 2235.9992675781, -2931.1982421875)
+v1Bottom.Parent = TeleportLocations
+
+local CarWeaponShelf = Instance.new("Part")
+CarWeaponShelf.Name = "CarWeaponShelf"
+CarWeaponShelf.Anchored = true
+CarWeaponShelf.CanCollide = false
+CarWeaponShelf.Size = Vector3.new(1, 1, 1)
+CarWeaponShelf.CFrame = CFrame.new(256.20776367188, 2234.9992675781, -2854.7473144531)
+CarWeaponShelf.Parent = TeleportLocations
+
+local UIS = game:GetService("UserInputService")
+function dragify(Frame)
+	dragToggle = nil
+	local dragSpeed = 0
+	dragInput = nil
+	dragStart = nil
+	local dragPos = nil
+	function updateInput(input)
+		local Delta = input.Position - dragStart
+		local Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + Delta.X, startPos.Y.Scale, startPos.Y.Offset + Delta.Y)
+		game:GetService("TweenService"):Create(Frame, TweenInfo.new(0.25), {Position = Position}):Play()
+	end
+	Frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) and UIS:GetFocusedTextBox() == nil then
+			dragToggle = true
+			dragStart = input.Position
+			startPos = Frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	Frame.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+	game:GetService("UserInputService").InputChanged:Connect(function(input)
+		if input == dragInput and dragToggle then
+			updateInput(input)
+		end
+	end)
+end
+
+dragify(Frame)
+
+CloneButton.Visible = true
+
+for _,v in pairs(TeleportLocations:GetChildren()) do
+
+	local clone = CloneButton:Clone()
+	clone.Visible = true
+	clone.Text = v.Name
+	clone.Name = v.Name
+	clone.Parent = TeleportPlaces
+
+	local cframeval = Instance.new("CFrameValue", clone)
+	cframeval.Name = "Pos"
+	cframeval.Value = v.CFrame
+
+end
+
+CloneButton.Visible = false
+
+for _,v in pairs(WeaponWarfareDestroyer:GetDescendants()) do
+	if v:IsA("GuiButton") then
+		v.MouseEnter:Connect(function()
+		end)
+		v.MouseLeave:Connect(function()
+
+		end)
+		v.MouseButton1Click:Connect(function()
+			Sounds["Click"]:Play()
+
+			if v.Parent.Name == "Teleport" then
+				if v.Parent.TextBox.Text ~= "" then
+					if game.Players:FindFirstChild(tostring(v.Parent.TextBox.Text)) then
+						game.Players.LocalPlayer.Character.HumanoidRootPart.Position = game.Players:FindFirstChild(v.Parent.TextBox.Text).Character.HumanoidRootPart.Position
+					else
+						ErrorPopup("Error", "Player does not exist!")
+					end
+				end
+			elseif v.Parent.Name == "JumpHeight" then
+				if tonumber(v.Parent.TextBox.Text) then
+					if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+						game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").UseJumpPower = false
+						game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").JumpHeight = tonumber(v.Parent.TextBox.Text)
+					end
+				else
+					ErrorPopup("Error", "Provided string is not an integer or number!")
+				end
+			elseif v.Parent.Name == "WalkSpeed" then
+				if tonumber(v.Parent.TextBox.Text) then
+					if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+						game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = tonumber(v.Parent.TextBox.Text)
+					end
+				else
+					ErrorPopup("Error", "Provided string is not an integer or number!")
+				end
+			elseif v.Parent.Name == "HipHeight" then
+				if tonumber(v.Parent.TextBox.Text) then
+					if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") then
+						game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").HipHeight = tonumber(v.Parent.TextBox.Text)
+					end
+				else
+					ErrorPopup("Error", "Provided string is not an integer or number!")
+				end
+			elseif v.Parent == TeleportPlaces then
+				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Pos.Value 
+			elseif v.Parent.Name == "ESP" then
+				ESPBool = not ESPBool
+				
+				if ESPBool == true then
+					for _,BillGui in pairs(Cleanup:GetChildren()) do
+						if BillGui:IsA("BillboardGui") then
+							BillGui.Enabled = true
+						end
+					end
+				else
+					for _,BillGui in pairs(Cleanup:GetChildren()) do
+						if BillGui:IsA("BillboardGui") then
+							BillGui.Enabled = false
+						end
+					end
+				end
+				
+			elseif v.Parent.Name == "Killfeed" then
+				KillfeedBool = not KillfeedBool
+				v.Text = "Killfeed (" .. tostring(KillfeedBool) .. ")"
+			end
+
+		end)
+	end
+end
+
+local FlyButton = TextButton5
+
+FlyButton.Text = "(Fly) You need to reset for this to work"
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function(Character)
+
+	FlyButton.Text = "Fly"
+	repeat wait()
+	until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Torso") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
+	local mouse = game.Players.LocalPlayer:GetMouse()
+	repeat wait() until mouse
+	local plr = game.Players.LocalPlayer
+	local torso = plr.Character.Torso
+	local flying = false
+	local deb = true
+	local ctrl = {f = 0, b = 0, l = 0, r = 0}
+	local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+	local maxspeed = 50
+	local speed = 0
+
+	function Fly()
+		local bg = Instance.new("BodyGyro", torso)
+		bg.P = 9e4
+		bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+		bg.cframe = torso.CFrame
+		local bv = Instance.new("BodyVelocity", torso)
+		bv.velocity = Vector3.new(0,0.1,0)
+		bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+		repeat wait()
+			plr.Character.Humanoid.PlatformStand = true
+			if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+				speed = speed+.5+(speed/maxspeed)
+				if speed > maxspeed then
+					speed = maxspeed
+				end
+			elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+				speed = speed-1
+				if speed < 0 then
+					speed = 0
+				end
+			end
+			if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+				bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+				lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+			elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+				bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+			else
+				bv.velocity = Vector3.new(0,0.1,0)
+			end
+			bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+		until not flying
+		ctrl = {f = 0, b = 0, l = 0, r = 0}
+		lastctrl = {f = 0, b = 0, l = 0, r = 0}
+		speed = 0
+		bg:Destroy()
+		bv:Destroy()
+		plr.Character.Humanoid.PlatformStand = false
+	end
+	mouse.KeyDown:connect(function(key)
+		if key:lower() == "w" then
+			ctrl.f = 1
+		elseif key:lower() == "s" then
+			ctrl.b = -1
+		elseif key:lower() == "a" then
+			ctrl.l = -1
+		elseif key:lower() == "d" then
+			ctrl.r = 1
+		end
+	end)
+	mouse.KeyUp:connect(function(key)
+		if key:lower() == "w" then
+			ctrl.f = 0
+		elseif key:lower() == "s" then
+			ctrl.b = 0
+		elseif key:lower() == "a" then
+			ctrl.l = 0
+		elseif key:lower() == "d" then
+			ctrl.r = 0
+		end
+	end)
+
+	FlyButton.MouseButton1Click:Connect(function()
+
+		if flying == true then 
+			flying = false
+		else 
+			flying = true
+			Fly()
+		end 
+
+	end)
+
+
+end)
+game.Players.PlayerAdded:Connect(function(Player)
+	Player.CharacterAdded:Connect(function(Character)
+
+		local BillboardGui = Instance.new("BillboardGui")
+		BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		BillboardGui.LightInfluence = 1
+		BillboardGui.AlwaysOnTop = true
+		BillboardGui.Size = UDim2.new(0, 200, 0, 50)
+		BillboardGui.ClipsDescendants = true
+		BillboardGui.Active = true
+		BillboardGui.Name = Player.Name
+		BillboardGui.Enabled = false
+
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Size = UDim2.new(0, 200, 0, 50)
+		TextLabel.BackgroundTransparency = 1
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.FontSize = Enum.FontSize.Size14
+		TextLabel.TextStrokeTransparency = 0
+		TextLabel.TextSize = 14
+		TextLabel.TextColor3 = Color3.fromRGB(152, 49, 49)
+		TextLabel.TextWrap = true
+		TextLabel.Font = Enum.Font.SourceSansBold
+		TextLabel.TextWrapped = true
+		TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.TextScaled = true
+		TextLabel.Parent = BillboardGui
+		TextLabel.Text = Player.Name
+
+		BillboardGui.Adornee = Character:WaitForChild("HumanoidRootPart")
+		BillboardGui.Parent = Cleanup
+		
+		if ESPBool == true then
+			BillboardGui.Enabled = true
+		end
+
+	end)
+end)
+
+for _, Player in pairs(game:GetService("Players"):GetPlayers()) do
+	Player.CharacterAdded:Connect(function(Character)
+
+		local BillboardGui = Instance.new("BillboardGui")
+		BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		BillboardGui.LightInfluence = 1
+		BillboardGui.AlwaysOnTop = true
+		BillboardGui.Size = UDim2.new(0, 200, 0, 50)
+		BillboardGui.ClipsDescendants = true
+		BillboardGui.Active = true
+		BillboardGui.Name = Player.Name
+		BillboardGui.Enabled = false
+
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Size = UDim2.new(0, 200, 0, 50)
+		TextLabel.BackgroundTransparency = 1
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.FontSize = Enum.FontSize.Size14
+		TextLabel.TextStrokeTransparency = 0
+		TextLabel.TextSize = 14
+		TextLabel.TextColor3 = Color3.fromRGB(152, 49, 49)
+		TextLabel.TextWrap = true
+		TextLabel.Font = Enum.Font.SourceSansBold
+		TextLabel.TextWrapped = true
+		TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.TextScaled = true
+		TextLabel.Parent = BillboardGui
+		TextLabel.Text = Player.Name
+
+		BillboardGui.Adornee = Character:WaitForChild("HumanoidRootPart")
+		BillboardGui.Parent = Cleanup
+		
+		if ESPBool == true then
+			BillboardGui.Enabled = true
+		end
+
+	end)
+
+	if Player.Character then
+		local BillboardGui = Instance.new("BillboardGui")
+		BillboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		BillboardGui.LightInfluence = 1
+		BillboardGui.AlwaysOnTop = true
+		BillboardGui.Size = UDim2.new(0, 200, 0, 50)
+		BillboardGui.ClipsDescendants = true
+		BillboardGui.Active = true
+		BillboardGui.Name = Player.Name
+		BillboardGui.Enabled = false
+
+		local TextLabel = Instance.new("TextLabel")
+		TextLabel.Size = UDim2.new(0, 200, 0, 50)
+		TextLabel.BackgroundTransparency = 1
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.FontSize = Enum.FontSize.Size14
+		TextLabel.TextStrokeTransparency = 0
+		TextLabel.TextSize = 14
+		TextLabel.TextColor3 = Color3.fromRGB(152, 49, 49)
+		TextLabel.TextWrap = true
+		TextLabel.Font = Enum.Font.SourceSansBold
+		TextLabel.TextWrapped = true
+		TextLabel.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.TextScaled = true
+		TextLabel.Parent = BillboardGui
+		TextLabel.Text = Player.Name
+
+		BillboardGui.Adornee = Player.Character:WaitForChild("HumanoidRootPart")
+		BillboardGui.Parent = Cleanup
+		
+		if ESPBool == true then
+			BillboardGui.Enabled = true
+		end
+		
+	end
+
+end
+
+game.Players.PlayerRemoving:Connect(function(Player)
+	if Cleanup:FindFirstChild(Player.Name) then
+		Cleanup:FindFirstChild(Player.Name):Destroy() -- cleanup 
+	end
+end)
+
+
+local function sendNotificDead(Deceased, Killer)
+
+
+	local Tool
+
+	if Killer then
+		if game.Players:FindFirstChild(Killer.Value.Name).Character:FindFirstChildOfClass("Tool") then
+			Tool = game.Players:FindFirstChild(Killer.Value.Name).Character:FindFirstChildOfClass("Tool")
+		end
+	end
+
+	local Title = ""
+	local Image = ""
+
+	if Killer == nil then
+		Title = Deceased.Name .. " has died of unknown causes."
+	end
+	if Killer and Tool == nil then
+		Title = Deceased.Name .. " was killed by " .. Killer.Value.Name .. "."
+	end
+	if Killer and Tool then
+		Title = Deceased.Name .. " was killed by " .. Killer.Value.Name .. " with " .. Tool.Name .. "."
+	end
+
+	if Tool then
+		Image = Tool.TextureId
+	else
+		Image = "rbxassetid://729781178"
+	end
+
+	if KillfeedBool == false then return end
+
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "WEAPON WARFARE DESTROYER";
+		Text = Title; 
+		Icon = Image; 
+		Duration = 4; 
+	})
+	wait(5.4)
+
+	pcall(function()
+
+		if KillfeedBool == false then return end
+
+		game.StarterGui:SetCore("ChatMakeSystemMessage", {
+			Text = "[WEAPON WARFARE DESTROYER]: " .. Title;
+			Color = Color3.new(1, 0.34902, 0.34902);
+			Font = Enum.Font.SourceSansBold;
+			FontSize = Enum.FontSize.Size24;
+		})
+
+	end)
+
+end
+
+for _,plr in pairs(game.Players:GetPlayers()) do
+	plr.CharacterAdded:Connect(function(char)
+		char:WaitForChild("Humanoid").Died:connect(function(killed)
+			local killer = char.Humanoid:FindFirstChild("creator")
+			sendNotificDead(plr, killer)
+		end)
+	end)
+	if plr.Character then
+
+		local char = plr.Character
+
+		char:WaitForChild("Humanoid").Died:connect(function(killed)
+			local killer = char.Humanoid:FindFirstChild("creator")
+			sendNotificDead(plr, killer)
+		end)
+	end
+end
+
+game.Players.PlayerAdded:Connect(function(plr)
+	plr.CharacterAdded:Connect(function(char)
+		char:WaitForChild("Humanoid").Died:connect(function(killed)
+			local killer = char.Humanoid:FindFirstChild("creator")
+			sendNotificDead(plr, killer)
+		end)
+	end)
+end) 
